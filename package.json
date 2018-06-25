@@ -1,7 +1,6 @@
 {
   "scripts": {
-    "start":
-      "concurrently --kill-others \"yarn run start-react\" \"ENV=dev electron .\"",
+    "start": "concurrently --kill-others \"yarn run start-react\" \"ENV=dev electron .\"",
     "start-react": "cd uidev && npm start"
   },
   "main": "main.js",

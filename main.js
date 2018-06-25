@@ -1,8 +1,14 @@
 const electron = require('electron');
 const path = require('path');
 const url = require('url');
+const nomadcoin = require('./nomadcoin/src/server');
 
 const { app, BrowserWindow } = electron;
+const server = nomadcoin.app.listen(4000, () => {
+  console.log('Running Localhost 4000');
+});
+
+nomadcoin.startP2PServer(server);
 
 let mainWindow;
 
