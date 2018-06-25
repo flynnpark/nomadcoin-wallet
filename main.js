@@ -1,14 +1,17 @@
 const electron = require('electron');
 const path = require('path');
 const url = require('url');
+const getPort = require('get-port');
 const nomadcoin = require('./nomadcoin/src/server');
 
-const { app, BrowserWindow } = electron;
-const server = nomadcoin.app.listen(4000, () => {
-  console.log('Running Localhost 4000');
+getPort().then(port => {
+  const server = nomadcoin.app.listen(port, () => {
+    console.log(`Running blockchain node on: http://localhost:${port}`);
+  });
+  nomadcoin.startP2PServer(server);
 });
 
-nomadcoin.startP2PServer(server);
+const { app, BrowserWindow } = electron;
 
 let mainWindow;
 
