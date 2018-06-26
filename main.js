@@ -9,6 +9,7 @@ getPort().then(port => {
     console.log(`Running blockchain node on: http://localhost:${port}`);
   });
   nomadcoin.startP2PServer(server);
+  global.sharedPort = port;
 });
 
 const { app, BrowserWindow } = electron;
