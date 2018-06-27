@@ -17,7 +17,7 @@ const baseStyles = () => injectGlobal`
 
 class AppContainer extends Component {
   state = {
-    isloading: true
+    isLoading: true
   };
   static propTypes = {
     sharedPort: PropTypes.number.isRequired
@@ -26,10 +26,12 @@ class AppContainer extends Component {
     const { sharedPort } = this.props;
     this._registerOnMaster(sharedPort);
     this._getAddress(sharedPort);
+    this._getBalance(sharedPort);
+    setInterval(() => this._getBalance(sharedPort), 1000);
   };
   render() {
     baseStyles();
-    return <AppPresenter />;
+    return <AppPresenter {...this.state} />;
   }
   _registerOnMaster = async port => {
     const request = await axios.post(`${MASTER_NODE}/peers`, {
@@ -40,7 +42,14 @@ class AppContainer extends Component {
   _getAddress = async port => {
     const request = await axios.get(`${SELF_NODE(port)}/me/address`);
     this.setState({
-      address: request.data
+      address: request.data,
+      isLoading: false
+    });
+  };
+  _getBalance = async port => {
+    const request = await axios.get(`${SELF_NODE(port)}/me/balance`);
+    this.setState({
+      balance: request.data
     });
   };
 }
