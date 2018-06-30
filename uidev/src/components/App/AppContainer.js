@@ -20,7 +20,7 @@ class AppContainer extends Component {
     isLoading: true,
     isMining: false,
     toAddress: '',
-    amount: 0
+    amount: '0'
   };
   static propTypes = {
     sharedPort: PropTypes.number.isRequired
@@ -34,6 +34,7 @@ class AppContainer extends Component {
   };
   render() {
     baseStyles();
+    console.log(this.props.sharedPort);
     return (
       <AppPresenter
         {...this.state}
@@ -85,13 +86,10 @@ class AppContainer extends Component {
     e.preventDefault();
     const { sharedPort } = this.props;
     const { amount, toAddress } = this.state;
-    const request = await acios.post(
-      `${SELF_NODE(sharedPort) / transactions}`,
-      {
-        amount,
-        addres: toAddress
-      }
-    );
+    const request = await axios.post(`${SELF_NODE(sharedPort)}/transactions`, {
+      amount: Number(amount),
+      address: toAddress
+    });
     this.setState({
       amount: '',
       toAddress: ''

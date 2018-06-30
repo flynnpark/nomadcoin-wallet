@@ -19,7 +19,7 @@ const Header = styled.div`
   align-items: center;
 `;
 
-const SendTxForm = styles.form`
+const SendTxForm = styled.form`
   margin-top: 25px;
 `;
 
@@ -69,7 +69,7 @@ const AppPresenter = ({
     </Header>
     <Card>
       <Key>
-        <KeyName>Your address:</KeyName> <Key>{address}</Key>
+        <KeyName>Your address:</KeyName> {address}
       </Key>
       <Key>
         <KeyName>Your balance:</KeyName> {balance} NMD
@@ -84,6 +84,7 @@ const AppPresenter = ({
           name="toAddress"
           value={toAddress}
           type={'text'}
+          value={toAddress}
           onChange={handleInput}
         />
         <Input
@@ -91,6 +92,7 @@ const AppPresenter = ({
           required
           name="amount"
           type={'number'}
+          value={amount || ''}
           onChange={handleInput}
           max={balance}
         />
@@ -112,7 +114,7 @@ AppPresenter.propTypes = {
   mineBlock: PropTypes.func.isRequired,
   isMining: PropTypes.bool.isRequired,
   toAddress: PropTypes.string.isRequired,
-  amount: PropTypes.number.isRequired,
+  amount: PropTypes.string.isRequired,
   handleInput: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired
 };
