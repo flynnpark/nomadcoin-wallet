@@ -58,6 +58,7 @@ typings/
 .env
 
 build
+dist
 
 # next.js build output
 .next
